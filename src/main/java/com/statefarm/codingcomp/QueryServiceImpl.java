@@ -173,7 +173,50 @@ public class QueryServiceImpl implements QueryService {
 
     @Override
     public String mostActiveReceiver() throws Exception {
+        // TODO Auto-generated method stub    	
+    	Map<String, Integer> countUser = new HashMap<String, Integer>();
+    	List<String> allReceiver = new ArrayList<>();
+    	int count = 0;
+    	
+    	String []str1;
+    	String []str2; 
+    	String []str3;
+    	String []str4;
+    	
+    	
         // TODO Auto-generated method stub
+    	str1 = reader.read(1, "mail.txt");	//file 1
+    	str2 = reader.read(2, "mail.txt");  //file 2
+    	str3 = reader.read(3, "mail.txt");  //file 3
+    	str4 = reader.read(4, "mail.txt");   	//file 4
+        
+    	for(int i = 0; i< str1.length; i++) {
+    			String []mailInfo = str1[i].split(",");
+    			allReceiver.add(mailInfo[0]);
+    	}
+    	for(int i = 0; i< str2.length; i++) {
+			String []mailInfo = str2[i].split(",");
+			allReceiver.add(mailInfo[0]);
+    	}
+    	for(int i = 0; i< str3.length; i++) {
+			String []mailInfo = str3[i].split(",");
+			allReceiver.add(mailInfo[0]);
+    	}
+    	for(int i = 0; i< str4.length; i++) {
+			String []mailInfo = str4[i].split(",");
+			allReceiver.add(mailInfo[0]);
+    	}
+    	
+    	for (String temp : allReceiver) {
+    		countUser.put(temp, Collections.frequency(allReceiver, temp));
+    	}
+    	
+    	int maxValueInMap=(Collections.max(countUser.values()));  // This will return max value in the Hashmap
+        for (Entry<String, Integer> entry : countUser.entrySet()) {  // Itrate through hashmap
+            if (entry.getValue()==maxValueInMap) {
+                return entry.getKey();    //return the maximum value
+            }
+        }
         return null;
     }
 
